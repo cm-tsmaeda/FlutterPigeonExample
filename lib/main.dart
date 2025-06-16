@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pigeon_example/pigeons/pgn_greeting_host_api.g.dart';
+import 'pigeons/pgn_greeting_host_api.g.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +31,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  // PgnGreetingHostApiImpl関連 ===
+
   final PgnGreetingHostApi _greetingHostApi = PgnGreetingHostApi();
   String? _hostLanguage;
   bool _hasHostLanguageLoadError = false;
@@ -72,9 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  // PgnGreetingHostApiImpl関連 ここまで ===
+
   @override
   void initState() {
     super.initState();
+    // 初期化時にホスト側の言語を取得
     updateHostLanguage();
   }
 
@@ -90,6 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+
+            // PgnGreetingHostApiImpl関連の呼び出し === 
 
             if (_hasHostLanguageLoadError)
               const Text('Error loading host language')
@@ -110,6 +118,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: onGetMessageButtonPressed, 
               child: const Text('getMessage')),
+
+            // PgnGreetingHostApiImpl関連の呼び出し ここまで ===  
           ],
         ),
       ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:pigeon_example/pigeons/pgn_greeting_host_api.g.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +31,52 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final PgnGreetingHostApi _greetingHostApi = PgnGreetingHostApi();
+  String? _hostLanguage;
+  bool _hasHostLanguageLoadError = false;
+  String? _greetingMessage;
+  bool _hasGreetingMessageLoadError = false;
+
+  void updateHostLanguage() async {
+    setState((){
+      _hasHostLanguageLoadError = false;
+    });
+    _greetingHostApi.getHostLanguage().then((language) {
+      print('Host language: $language');
+      setState(() {
+        _hostLanguage = language;
+        _hasHostLanguageLoadError = false;
+      });
+    }).onError<PlatformException>((PlatformException error, StackTrace _) {
+      print('Error getting host language: $error');
+      setState(() {
+        _hasHostLanguageLoadError = true;
+      });
+    });
+  }
+
+  void onGetMessageButtonPressed() async {
+    print('Button pressed');
+    try {
+      setState(() {
+        _hasGreetingMessageLoadError = false;
+        _greetingMessage = null;
+      });
+      //final person = PgnPerson();
+      final person = PgnPerson(name: 'サンプル 太郎', age: 30);
+      final result = await _greetingHostApi.getMessage(person);
+      setState(() => _greetingMessage = result);
+    } catch (error) {
+      print('Error getting message: $error');
+      setState(() => _hasGreetingMessageLoadError = true);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateHostLanguage();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +90,26 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(onPressed: () {
-              print('Button pressed');
-            }, child: const Text('sample')),
+
+            if (_hasHostLanguageLoadError)
+              const Text('Error loading host language')
+            else
+              Text('Host language: $_hostLanguage'),
+
+            SizedBox(height: 30),
+
+            if (_greetingMessage != null)
+              Text('$_greetingMessage')
+            else if (_hasGreetingMessageLoadError)
+              const Text('Error loading greeting message')
+            else
+              const CircularProgressIndicator(),
+
+            SizedBox(height: 10),
+
+            ElevatedButton(
+              onPressed: onGetMessageButtonPressed, 
+              child: const Text('getMessage')),
           ],
         ),
       ),

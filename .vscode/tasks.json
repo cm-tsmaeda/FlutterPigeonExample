@@ -1,0 +1,27 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Flutter: Generate File",
+            "type": "shell",
+            "command": "fvm dart run build_runner watch -d",
+            "args": [
+            ],
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}",
+            }
+        },
+        {
+            "label": "Flutter: Generate Pigeon File",
+            "type": "shell",
+            "command": "fvm dart run pigeon --input pigeon/messages.dart",
+            "args": [
+            ],
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}",
+            }
+        }
+    ]
+}

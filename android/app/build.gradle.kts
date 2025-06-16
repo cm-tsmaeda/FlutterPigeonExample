@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.app250616_pigeon"
+    namespace = "com.example.pigeon_example"
     compileSdk = 35
     ndkVersion = flutter.ndkVersion
 
@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.app250616_pigeon"
+        applicationId = "com.example.pigeon_example"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 28

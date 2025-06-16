@@ -1,4 +1,4 @@
-package com.example.app250616_pigeon
+package com.example.pigeon_example
 
 import io.flutter.embedding.android.FlutterActivity
 

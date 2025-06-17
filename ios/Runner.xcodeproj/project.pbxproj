@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,8 +15,9 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
-		D5179A892E000530006F667D /* PgnGreetingHostApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5179A872E000530006F667D /* PgnGreetingHostApi.g.swift */; };
 		D5179A8B2E0014B0006F667D /* PgnGreetingHostApiImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5179A8A2E0014AD006F667D /* PgnGreetingHostApiImpl.swift */; };
+		D5179A902E010DAD006F667D /* PgnAppLifecycleFlutterApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5179A8E2E010DAD006F667D /* PgnAppLifecycleFlutterApi.g.swift */; };
+		D5179A912E010DAD006F667D /* PgnGreetingHostApi.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5179A8F2E010DAD006F667D /* PgnGreetingHostApi.g.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,8 +59,9 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D5179A872E000530006F667D /* PgnGreetingHostApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PgnGreetingHostApi.g.swift; sourceTree = "<group>"; };
 		D5179A8A2E0014AD006F667D /* PgnGreetingHostApiImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PgnGreetingHostApiImpl.swift; sourceTree = "<group>"; };
+		D5179A8E2E010DAD006F667D /* PgnAppLifecycleFlutterApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PgnAppLifecycleFlutterApi.g.swift; sourceTree = "<group>"; };
+		D5179A8F2E010DAD006F667D /* PgnGreetingHostApi.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PgnGreetingHostApi.g.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +133,8 @@
 		D5179A842E0001A5006F667D /* pigeons */ = {
 			isa = PBXGroup;
 			children = (
-				D5179A872E000530006F667D /* PgnGreetingHostApi.g.swift */,
+				D5179A8E2E010DAD006F667D /* PgnAppLifecycleFlutterApi.g.swift */,
+				D5179A8F2E010DAD006F667D /* PgnGreetingHostApi.g.swift */,
 				D5179A8A2E0014AD006F667D /* PgnGreetingHostApiImpl.swift */,
 			);
 			path = pigeons;
@@ -291,7 +294,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
-				D5179A892E000530006F667D /* PgnGreetingHostApi.g.swift in Sources */,
+				D5179A902E010DAD006F667D /* PgnAppLifecycleFlutterApi.g.swift in Sources */,
+				D5179A912E010DAD006F667D /* PgnGreetingHostApi.g.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				D5179A8B2E0014B0006F667D /* PgnGreetingHostApiImpl.swift in Sources */,
 			);

@@ -5,7 +5,7 @@ import 'pigeons/pgn_greeting_host_api.g.dart';
 import 'pigeons/pgn_app_lifecycle_flutter_api.g.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  //WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pigeon_example/pigeons/pgn_app_lifecycle_flutter_api_impl.dart';
 import 'pigeons/pgn_greeting_host_api.g.dart';
+import 'pigeons/pgn_app_lifecycle_flutter_api.g.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -32,7 +35,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  // PgnGreetingHostApiImpl関連 ===
+  // PgnGreetingHostApi関連 ===
 
   final PgnGreetingHostApi _greetingHostApi = PgnGreetingHostApi();
   String? _hostLanguage;
@@ -75,13 +78,40 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  // PgnGreetingHostApiImpl関連 ここまで ===
+  // PgnGreetingHostApi関連 ここまで ===
+
+  void onAppLifecycleStateChanged(PgnAppLifecycleState state) {
+    // アプリのライフサイクル状態が変化したときの処理
+    switch (state) {
+      case PgnAppLifecycleState.enterForeground:
+        print('App entered foreground');
+        _showBottomSheet(context, 'App State Changed', 'App entered foreground');
+      case PgnAppLifecycleState.enterBackground:
+        print('App entered background');
+        break;
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+
     // 初期化時にホスト側の言語を取得
     updateHostLanguage();
+
+    // PgnAppLifecycleFlutterApiの初期化
+    final flutterApi = PgnAppLifecycleFlutterApiImpl(
+      onAppLifecycleStateChangedCallback: onAppLifecycleStateChanged,
+    );
+    PgnAppLifecycleFlutterApi.setUp(flutterApi);
+  }
+
+  @override
+  void dispose() {
+    // PgnAppLifecycleFlutterApiのクリーンアップ
+    PgnAppLifecycleFlutterApi.setUp(null);
+    
+    super.dispose();
   }
 
   @override
@@ -123,6 +153,59 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showBottomSheet(BuildContext context, String? title, String? message) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // メッセージ部分
+              if (title != null && title.isNotEmpty)
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8),
+              if (message != null && message.isNotEmpty)
+                Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 14),
+                ),
+                SizedBox(height: 24),
+              // OKボタン
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Text('OK'),
+                ),
+              ),
+              SizedBox(height: 8),
+            ],
+          ),
+        );
+      },
     );
   }
 }

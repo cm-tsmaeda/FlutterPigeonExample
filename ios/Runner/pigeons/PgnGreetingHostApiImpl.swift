@@ -26,7 +26,7 @@ class PgnGreetingHostApiImpl: PgnGreetingHostApi {
             
             // エラーを返す例
 //            await MainActor.run {
-//                completion(Result.failure(
+//                completion(.failure(
 //                    PigeonError(code: "200", message: "何らかのエラー", details: nil)
 //                ))
 //            }
@@ -37,7 +37,7 @@ class PgnGreetingHostApiImpl: PgnGreetingHostApi {
                 if let age = person.age {
                     message += "\nあなたは \(age)歳ですね!"
                 }
-                completion(Result.success(message))
+                completion(.success(message))
             }
         }
     }

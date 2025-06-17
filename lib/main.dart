@@ -35,6 +35,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  bool _isBottomSheetShowing = false;
+
   // PgnGreetingHostApi関連 ===
 
   final PgnGreetingHostApi _greetingHostApi = PgnGreetingHostApi();
@@ -157,6 +159,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _showBottomSheet(BuildContext context, String? title, String? message) {
+    if (_isBottomSheetShowing) return;
+    _isBottomSheetShowing = true;
+
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
@@ -206,6 +211,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         );
       },
-    );
+    ).whenComplete(() {
+      print('Bottom sheet closed');
+      _isBottomSheetShowing = false;
+    });
   }
 }

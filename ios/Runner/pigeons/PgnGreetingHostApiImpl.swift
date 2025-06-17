@@ -21,20 +21,24 @@ class PgnGreetingHostApiImpl: PgnGreetingHostApi {
     ///
     /// Returns: あいさつのメッセージ
     func getMessage(person: PgnPerson, completion: @escaping (Result<String, Error>) -> Void) {
-        Task {
+        Task.detached {
             try await Task.sleep(for: .seconds(1))
             
             // エラーを返す例
-//            completion(Result.failure(
-//                PigeonError(code: "200", message: "何らかのエラー", details: nil)
-//            ))
+//            await MainActor.run {
+//                completion(Result.failure(
+//                    PigeonError(code: "200", message: "何らかのエラー", details: nil)
+//                ))
+//            }
             
             // 正常系
-            var message = "こんにちは！ \(person.name ?? "ななし") さん。"
-            if let age = person.age {
-                message += "\nあなたは \(age)歳ですね!"
+            await MainActor.run {
+                var message = "こんにちは！ \(person.name ?? "ななし") さん。"
+                if let age = person.age {
+                    message += "\nあなたは \(age)歳ですね!"
+                }
+                completion(Result.success(message))
             }
-            completion(Result.success(message))
         }
     }
 }
